@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- <script defer src="script.js"></script> -->
+  </head>
+  <body class="bg-gray-100 p-6 font-sans">
+    <div id="main_container">
+      <div class="grid grid-cols-12">
+        <div class="col-span-4 md:col-span-2 lg:col-span-3 xl:col-span-4"></div>
+        <div class="col-span-12 md:col-span-8 lg:col-span-6 xl:col-span-4">
+          <h1 class="text-center text-gray-800 font-bold text-3xl md-8">
+            ADD NEW BOOK
+          </h1>
+
+          <form
+            id="bookForm"
+            class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg"
+          >
+            <!-- Book Type Selector -->
+            <div class="form-group mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="bookType"
+                >Book Type:</label
+              >
+              <select
+                id="bookType"
+                name="bookType"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              >
+                <option value="printed">Printed Book</option>
+                <option value="ebook">E-Book</option>
+              </select>
+            </div>
+
+            <!-- Common Fields -->
+            <div class="form-group mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="title"
+                >Title:</label
+              >
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="title"
+                type="text"
+                name="title"
+              />
+              <p class="error text-red-500 mt-2" id="titleError"></p>
+            </div>
+
+            <div class="form-group mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="author"
+                >Author:</label
+              >
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="author"
+                type="text"
+                name="author"
+              />
+              <p class="error text-red-500 mt-2" id="authorError"></p>
+            </div>
+
+            <div class="form-group mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="isbn"
+                >ISBN:</label
+              >
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="isbn"
+                type="text"
+                name="isbn"
+              />
+              <p class="error text-red-500 mt-2" id="isbnError"></p>
+            </div>
+
+            <div class="form-group mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="price"
+                >Price:</label
+              >
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="price"
+                type="text"
+                name="price"
+              />
+              <p class="error text-red-500 mt-2" id="priceError"></p>
+            </div>
+
+            <div class="form-group mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="pub-date"
+                >Publication Date:</label
+              >
+              <input
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="pub-date"
+                type="date"
+                name="publication_date"
+              />
+              <p class="error text-red-500 mt-2" id="pubDateError"></p>
+            </div>
+
+            <div class="form-group mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="genre"
+                >Genre:</label
+              >
+              <select
+                id="genre"
+                name="genre"
+                class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value="" disabled selected>Select genre</option>
+                <option value="fiction">Fiction</option>
+                <option value="non-fiction">Non-Fiction</option>
+                <option value="fantasy">Fantasy</option>
+                <option value="biography">Biography</option>
+                <option value="science">Science</option>
+                <option value="history">History</option>
+              </select>
+              <p class="error text-red-500 mt-2" id="genreError"></p>
+            </div>
+
+            <!-- EBook-specific Fields -->
+            <div id="ebookFields" class="form-group mb-4 hidden">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="fileSize"
+                >File Size (MB):</label
+              >
+              <input
+                id="fileSize"
+                type="number"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              />
+              <p class="error text-red-500 mt-2" id="fileSizeError"></p>
+
+              <div class="form-group mb-4">
+                <label
+                  class="block text-gray-700 text-sm font-bold mb-2"
+                  for="format"
+                  >Format:</label
+                >
+                <select
+                  id="format"
+                  name="format"
+                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                >
+                  <option value="PDF">PDF</option>
+                  <option value="TXT">TXT</option>
+                </select>
+                <p class="error text-red-500 mt-2" id="formatError"></p>
+              </div>
+            </div>
+
+            <!-- PrintedBook-specific Fields -->
+            <div id="printedBookFields" class="form-group mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="pageCount"
+                >Page Count:</label
+              >
+              <input
+                id="pageCount"
+                type="number"
+                class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              />
+              <p class="error text-red-500 mt-2" id="pageCountError"></p>
+
+              <div class="form-group mb-4">
+                <label
+                  class="block text-gray-700 text-sm font-bold mb-2"
+                  for="bindingType"
+                  >Binding Type:</label
+                >
+                <select
+                  id="bindingType"
+                  name="bindingType"
+                  class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                >
+                  <option value="paperback">Paper Back</option>
+                  <option value="hardcover">Hard Cover</option>
+                </select>
+                <p class="error text-red-500 mt-2" id="bindingTypeError"></p>
+              </div>
+            </div>
+
+            <button
+              class="w-full bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="button"
+              id="submit-btn"
+            >
+              ADD BOOK
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="Search books..."
+        oninput="handleBookSearch()"
+        class="mt-8 w-full max-w-lg mx-auto p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
+      />
+
+      <div class="book-list mt-8 max-w-lg mx-auto" id="bookList"></div>
+    </div>
+    <div id="showPage" class="hidden"></div>
+
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
