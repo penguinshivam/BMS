@@ -1,0 +1,12 @@
+{
+  "ids": {
+    "Book": 4
+  },
+  "models": {
+    "Book": {
+      "1": "{\"author\":\"string\",\"isbn\":0,\"genre\":\"string\",\"pub_date\":\"2024-11-13T06:17:13.541Z\",\"name\":\"1\"}",
+      "2": "{\"author\":\"string\",\"isbn\":0,\"genre\":\"string\",\"pub_date\":\"2024-11-13T06:19:59.691Z\",\"name\":\"2\"}",
+      "3": "{\"author\":\"abc\",\"isbn\":0,\"genre\":\"string\",\"pub_date\":\"2024-11-18T08:09:01.099Z\",\"name\":\"3\"}"
+    }
+  }
+}

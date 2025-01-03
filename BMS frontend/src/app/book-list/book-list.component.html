@@ -1,0 +1,37 @@
+<div *ngIf="books.length > 0; else noBooksMessage" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+  <div *ngFor="let book of books" class="bg-gray-800 rounded-lg shadow-lg p-6 flex flex-col justify-between">
+    <!-- Book Details -->
+    <div>
+      <h2 class="text-xl font-semibold text-gray-100 mb-2">{{ book.title }}</h2>
+      <p class="text-gray-300"><strong>Author:</strong> {{ book.author }}</p>
+      <p class="text-gray-300"><strong>ISBN:</strong> {{ book.isbn }}</p>
+      <p class="text-gray-300"><strong>Price:</strong> {{ book.price }}</p>
+      <p class="text-gray-300"><strong>Publication Date:</strong> {{ book.publication_date }}</p>
+      <p class="text-gray-300"><strong>Genre:</strong> {{ book.genre }}</p>
+    </div>
+
+    <!-- Actions -->
+    <div class="flex space-x-2 mt-4">
+      <button
+        (click)="onEdit(book.id)"
+        class="flex-1 bg-blue-500 hover:bg-blue-700 text-white px-3 py-2 rounded text-center"
+        aria-label="Edit Book"
+      >
+        Edit
+      </button>
+      <button
+        (click)="onDelete(book.id)"
+        class="flex-1 bg-red-500 hover:bg-red-700 text-white px-3 py-2 rounded text-center"
+        aria-label="Delete Book"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</div>
+
+<ng-template #noBooksMessage>
+  <div class="text-center text-gray-400 text-lg">
+    No books added yet.
+  </div>
+</ng-template>
