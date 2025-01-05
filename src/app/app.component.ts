@@ -7,12 +7,11 @@ import {Book} from './models/book.model';
 import {HttpClient} from '@angular/common/http';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  styleUrls: ['./app.component.css'],
-  providers: [BookService],
-  imports: [CommonModule, BookListComponent, BookFormComponent],
-  templateUrl: './app.component.html',
+    selector: 'app-root',
+    styleUrls: ['./app.component.css'],
+    providers: [BookService],
+    imports: [CommonModule, BookListComponent, BookFormComponent],
+    templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
   books: Book[] = [];
@@ -20,11 +19,13 @@ export class AppComponent implements OnInit {
   http = inject(HttpClient);
   apiBooks: Book[] = [];
 
+
   constructor(private bookService: BookService) {
   }
 
   ngOnInit() {
-    this.http.get(`http://127.0.0.1:3000/books/count`).subscribe(async (
+    let url=process.env['PROD_BMS_URL'] ?? "http://localhost:3000/";
+    this.http.get(url.concat("books/count")).subscribe(async (
       response: any) => {
       if (response.count < 5) {
         await this.loadBooks();
@@ -36,9 +37,10 @@ export class AppComponent implements OnInit {
 
   async loadBooks() {
     try {
+      let url=process.env['PROD_BMS_URL'] ?? "http://localhost:3000/";
       this.apiBooks = await this.bookService.fetchBooks();
       for (const book of this.apiBooks) {
-        this.http.post('http://127.0.0.1:3000/books', book).subscribe((response: any) => {
+        this.http.post(url.concat("books"), book).subscribe((response: any) => {
           this.handleRefresh();
         });
       }
@@ -48,7 +50,8 @@ export class AppComponent implements OnInit {
   }
 
   handleRefresh() {
-    this.http.get('http://127.0.0.1:3000/books').subscribe((result: any) => {
+    let url=process.env['PROD_BMS_URL'] ?? "http://localhost:3000/";
+    this.http.get(url.concat("books")).subscribe((result: any) => {
       this.books = result;
     });
   }

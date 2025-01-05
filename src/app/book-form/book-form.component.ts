@@ -14,10 +14,9 @@ import { Book } from '../models/book.model';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-book-form',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './book-form.component.html',
+    selector: 'app-book-form',
+    imports: [CommonModule, FormsModule],
+    templateUrl: './book-form.component.html'
 })
 export class BookFormComponent implements OnChanges {
   @Input() bookToEdit: Book | null = null;
@@ -36,7 +35,7 @@ export class BookFormComponent implements OnChanges {
 
   onSubmit(bookForm: any) {
     this.formSubmitted = true;
-
+    let url=process.env['PROD_BMS_URL'] ?? "http://localhost:3000/";
     if (bookForm.valid) {
 
       if (this.bookToEdit) {
@@ -52,8 +51,7 @@ export class BookFormComponent implements OnChanges {
         );
         this.http
           .put(
-            `http://127.0.0.1:3000/books/${this.bookToEdit?.id}`,
-            bookInstance
+            url.concat(`books/${this.bookToEdit?.id}`),bookInstance
           )
           .subscribe(() => {
             this.addOrUpdateBook.emit();
@@ -72,7 +70,7 @@ export class BookFormComponent implements OnChanges {
         );
         console.log(bookInstance);
         this.http
-          .post('http://127.0.0.1:3000/books', bookInstance)
+          .post(url.concat('/books'), bookInstance)
           .subscribe(() => {
             this.addOrUpdateBook.emit();
             this.resetForm();
